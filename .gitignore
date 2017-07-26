@@ -1,0 +1,11 @@
+output/
+__pycache__/
+venv/
+*.swp
+
+checkpoints/
+
+models/vgg19_weights_normalized.h5
+
+datasets/coco
+datasets/wikiart
