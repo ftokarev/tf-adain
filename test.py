@@ -6,7 +6,7 @@ import os
 import numpy as np
 import tensorflow as tf
 
-from adain.image import load_image, load_mask, save_image
+from adain.image import load_image, prepare_image, load_mask, save_image
 from adain.coral import coral
 from adain.nn import build_vgg, build_decoder
 from adain.norm import adain
@@ -91,7 +91,7 @@ def style_transfer(
 
         for content_path, style_path in product(content_batch, style_batch):
             content_name = get_filename(content_path)
-            content_image = load_image(content_path, content_size, crop, data_format)
+            content_image = load_image(content_path, content_size, crop)
 
             if isinstance(style_path, list): # Style blending/Spatial control
                 style_paths = style_path
@@ -101,9 +101,10 @@ def style_transfer(
                 # their activations in one pass
                 style_images = None
                 for i, style_path in enumerate(style_paths):
-                    style_image = load_image(style_path, style_size, crop, data_format)
+                    style_image = load_image(style_path, style_size, crop)
                     if preserve_color:
                         style_image = coral(style_image, content_image)
+                    style_image = prepare_image(style_image)
                     if style_images is None:
                         shape = tuple([len(style_paths)]) + style_image.shape
                         style_images = np.empty(shape)
@@ -113,6 +114,7 @@ def style_transfer(
                     image: style_images
                 })
 
+                content_image = prepare_image(content_image)
                 content_feature = sess.run(encoder, feed_dict={
                     image: content_image[np.newaxis,:]
                 })
@@ -170,9 +172,11 @@ def style_transfer(
                         }) * weight
             else:
                 style_name = get_filename(style_path)
-                style_image = load_image(style_path, style_size, crop, data_format)
+                style_image = load_image(style_path, style_size, crop)
                 if preserve_color:
                     style_image = coral(style_image, content_image)
+                style_image = prepare_image(style_image)
+                content_image = prepare_image(content_image)
                 style_feature = sess.run(encoder, feed_dict={
                     image: style_image[np.newaxis,:]
                 })

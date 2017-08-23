@@ -6,7 +6,7 @@ import time
 
 import tensorflow as tf
 
-from adain.image import load_image
+from adain.image import load_image, prepare_image
 from adain.util import extract_image_names_recursive
 
 
@@ -34,7 +34,8 @@ def prepare_dataset(input_dir, output_dir, size, images_per_file, file_prefix):
             output_path = os.path.join(output_dir, output_file)
             writer = tf.python_io.TFRecordWriter(output_path)
         try:
-            image = load_image(filename, size, crop=True, normalize=False)
+            image = load_image(filename, size, crop=True)
+            image = prepare_image(image, normalize=False)
             example = build_example(image)
             writer.write(example.SerializeToString())
         except (OSError, OverflowError, ValueError):
