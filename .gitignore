@@ -1,7 +1,7 @@
-output/
 __pycache__/
 venv/
 *.swp
+*.pyc
 
 checkpoints/
 

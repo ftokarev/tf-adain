@@ -2,6 +2,12 @@
 
 Implementation of Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization in Tensorflow
 
+<p align='center'>
+    <img src='input/content/cornell.jpg' height="200px">
+    <img src='input/style/woman_with_hat_matisse.jpg' height="200px">
+    <img src='output/cornell_stylized_woman_with_hat_matisse.jpg' height="200px">
+</p>
+
 ## Paper
 https://arxiv.org/abs/1703.06868
 
