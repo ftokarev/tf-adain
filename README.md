@@ -14,7 +14,7 @@ https://arxiv.org/abs/1703.06868
 ## Setup
 
 ```
-git clone https://bitbucket.org/eleven23/style-transfer
+git clone https://github.com/ftokarev/tf-adain
 cd style-transfer
 virtualenv venv --python /usr/bin/python3
 source venv/bin/activate
