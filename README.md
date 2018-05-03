@@ -13,9 +13,9 @@ https://arxiv.org/abs/1703.06868
 
 ## Setup
 
-```
+```bash
 git clone https://github.com/ftokarev/tf-adain
-cd style-transfer
+cd tf-adain
 virtualenv venv --python /usr/bin/python3
 source venv/bin/activate
 pip install -r requirements.txt
@@ -28,14 +28,14 @@ bash models/get_vgg.sh
 
 Use `--content` and `--style` to provide the respective path to the content and style image, for example:
 
-```
+```bash
 ./test.py --content input/content/cornell.jpg --style input/style/woman_with_hat_matisse.jpg --content_size 0 --style_size 0
 ```
 
 To run the code on directories of content and style images use `--content_dir` and `--style_dir` options. It will save every possible
 combination of content and styles to the output directory.
 
-```
+```bash
 ./test.py --content_dir input/content --style_dir input/style
 ```
 
@@ -47,7 +47,7 @@ Other options:
 
 To see all available options, type:
 
-```
+```bash
 ./test.py -h
 ```
 
@@ -59,7 +59,7 @@ Use `--alpha` to adjust the degree of stylization. It should be a value between 
 
 Add `--preserve_color` to preserve the color of the content image. Example usage:
 
-```
+```bash
 ./test.py --content input/content/newyork.jpg --style input/style/brushstrokes.jpg --content_size 0 --style_size 0 --preserve_color
 ```
 
@@ -67,7 +67,7 @@ Add `--preserve_color` to preserve the color of the content image. Example usage
 
 To interpolate between several style images, provide them as a comma-separated list. You can control the relative weight of each style by using the `--style_interp_weights` option. Example usage:
 
-```
+```bash
 ./test.py --content input/content/avril.jpg --style input/style/picasso_self_portrait.jpg,input/style/impronte_d_artista.jpg --style_interp_weights 1,1 --crop --style_size 400
 ```
 
@@ -76,7 +76,7 @@ To interpolate between several style images, provide them as a comma-separated l
 Use `--mask` to provide the path to a binary foreground mask. You can transfer the foreground and background of the content image to different styles.
 Note that you also to need to provide two style images separated be comma, in which the first one is applied to foreground and the second one is applied to background. Example usage:
 
-```
+```bash
 ./test.py --content input/content/blonde_girl.jpg --style input/style/woman_in_peasant_dress_cropped.jpg,input/style/mondrian_cropped.jpg --mask input/mask/mask.png --content_size 0 --style_size 0
 ```
 
@@ -85,26 +85,26 @@ Note that you also to need to provide two style images separated be comma, in wh
 - Download the wikiart dataset from Kaggle (https://www.kaggle.com/c/painter-by-numbers/download/train.zip), unzip images into `datasets/wikiart/train`
 - Download the MS COCO dataset using the included downloader:
 
-```
+```bash
 ./datasets/get_coco_train.sh
 ```
 
 - Prepare datasets for training
 
-```
+```bash
 ./prepare_dataset.py datasets/coco/train2014/ datasets/coco/
 ./prepare_dataset.py datasets/wikiart/train/ datasets/wikiart/
 ```
 
 - Launch the training script
 
-```
+```bash
 ./train.py
 ```
 
 To see all available options, type:
 
-```
+```bash
 ./train.py -h
 ```
 
